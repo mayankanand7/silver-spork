@@ -20,5 +20,11 @@ public class AdminController {
 
         return "created";
     }
+    @RequestMapping(value = "/movies", method = RequestMethod.GET)
+    @ResponseBody
+    public String getMovie() {
+        LOGGER.info("Getting movie");
 
+        return "fetched";
+    }
 }
