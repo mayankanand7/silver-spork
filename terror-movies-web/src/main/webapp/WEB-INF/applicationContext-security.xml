@@ -5,7 +5,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
 	<security:http auto-config="true">
-	    <security:form-login login-page="/custom_login" />
+	    <security:form-login login-page="/custom_login" username-parameter="user_param" password-parameter="pass_param" default-target-url="/admin/movies" authentication-failure-url="/custom_login?login_error"/>
+
 		<security:intercept-url pattern="/admin/**/*" access="ROLE_ADMIN" />
 	</security:http>
 
