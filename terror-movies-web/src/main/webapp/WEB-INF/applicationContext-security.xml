@@ -17,6 +17,7 @@
 			authentication-failure-url="/custom_login?login_error" authentication-failure-handler-ref="serverErrorHandler" />
  -->
         <security:remember-me key="terror-key" />
+        <security:logout delete-cookies="JSESSIONID" success-handler-ref="logoutRedirectToAny"/>
 
         <!-- HTTP Authentication (non-form) :: BasicAuthenticationFilter & BasicAuthenticationEntryPoint as strategy -->
 <!-- 
@@ -28,7 +29,7 @@
         <security:custom-filter ref="digestFilter" before="BASIC_AUTH_FILTER"/>
  -->
 
-		<security:intercept-url pattern="/admin/*" access="ROLE_ADMIN,IS_AUTHENTICATED_FULLY" />
+		<security:intercept-url pattern="/admin/*" access="ROLE_ADMIN" />
 	</security:http>
 
 
@@ -54,8 +55,16 @@
         </constructor-arg>
     </bean>
 
+
+    <!-- AuthenticationFailureHandler -->
     <bean id="serverErrorHandler" class="com.terrormovies.web.security.ServerErrorFailureHandler"/>
 
+
+    <!-- SuccessfulLogoutHandler -->
+    <bean id="logoutRedirectToAny" class="org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler">
+        <property name="targetUrlParameter" value="redirectTo"/>
+        <property name="defaultTargetUrl" value="/custom_login" />
+    </bean>
 
     <!-- Bean : DigestAuthFilter and EntryPoint -->
 <!-- 
