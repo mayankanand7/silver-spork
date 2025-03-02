@@ -4,16 +4,22 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-	<security:http auto-config="true">
-<!--    Configuration for form login authentication -->
+	<security:http auto-config="true" entry-point-ref="digestEntryPoint">
+       <!-- Configuration for form login authentication -->
 <!-- 
 		<security:form-login login-page="/custom_login"
 			username-parameter="user_param" password-parameter="pass_param"
 			default-target-url="/admin/movies"
 			authentication-failure-url="/custom_login?login_error" authentication-failure-handler-ref="serverErrorHandler"/>
  -->
-<!-- HTTP Authentication (non-form) :: BasicAuthenticationFilter & BasicAuthenticationEntryPoint as strategy -->
+        <!-- HTTP Authentication (non-form) :: BasicAuthenticationFilter & BasicAuthenticationEntryPoint as strategy -->
+<!-- 
         <security:http-basic/>
+ -->
+
+        <!-- Digest Authentication -->
+        <security:custom-filter ref="digestFilter" before="BASIC_AUTH_FILTER"/>
+
 
 		<security:intercept-url pattern="/admin/**/*"
 			access="ROLE_ADMIN" />
@@ -31,6 +37,21 @@
 
 
     <!-- Beans -->
+
     <bean id="serverErrorHandler" class="com.terrormovies.web.security.ServerErrorFailureHandler"/>
+
+
+    <!-- Bean : DigestAuthFilter and EntryPoint -->
+    <bean id="digestFilter" class="org.springframework.security.web.authentication.www.DigestAuthenticationFilter">
+        <property name="userDetailsService" ref="userService" />
+        <property name="authenticationEntryPoint" ref="digestEntryPoint" />
+    </bean>
+
+    <bean id="digestEntryPoint" class="org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint">
+        <property name="realmName" value="terrormovies-realm" />
+        <property name="key" value="terrorific" />
+    </bean>
+
+    <bean id="userService" class="com.terrormovies.web.service.UserDetailsServiceImpl"></bean>
 
 </beans>
