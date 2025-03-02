@@ -2,6 +2,8 @@ package com.terrormovies.web.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,11 +22,16 @@ public class AdminController {
 
         return "created";
     }
+
     @RequestMapping(value = "/movies", method = RequestMethod.GET)
     @ResponseBody
     public String getMovie() {
-        LOGGER.info("Getting movie");
+        // User Info
+        final UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        LOGGER.info("User info :: {}", user);
 
-        return "fetched";
+        LOGGER.info("Getting movie");
+        return String.format("User %s, is accessing the movie ABC", user.getUsername());
     }
+
 }

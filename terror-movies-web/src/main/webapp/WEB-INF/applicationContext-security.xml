@@ -1,46 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:security="http://www.springframework.org/schema/security"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
-<!-- 
-	<security:http auto-config="true" entry-point-ref="digestEntryPoint">
- -->
+    xmlns:security="http://www.springframework.org/schema/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+
 
     <security:http auto-config="true" access-decision-manager-ref="accessDecisionManager">
+<!--   <security:http auto-config="true" entry-point-ref="digestEntryPoint"> -->
+
 
        <!-- Configuration for form login authentication -->
-<!-- 
-		<security:form-login login-page="/custom_login"
-			username-parameter="user_param" password-parameter="pass_param"
-			default-target-url="/admin/movies"
-			authentication-failure-url="/custom_login?login_error" authentication-failure-handler-ref="serverErrorHandler" />
- -->
+
+       <security:form-login login-page="/custom_login" username-parameter="user_param" password-parameter="pass_param" 
+           default-target-url="/admin/movies" authentication-failure-url="/custom_login?login_error" 
+           authentication-failure-handler-ref="serverErrorHandler" />
+ 
         <security:remember-me key="terror-key" />
         <security:logout delete-cookies="JSESSIONID" success-handler-ref="logoutRedirectToAny"/>
 
         <!-- HTTP Authentication (non-form) :: BasicAuthenticationFilter & BasicAuthenticationEntryPoint as strategy -->
-<!-- 
-        <security:http-basic/>
- -->
+<!--    <security:http-basic/> -->
 
         <!-- Digest Authentication -->
+<!--    <security:custom-filter ref="digestFilter" before="BASIC_AUTH_FILTER"/> -->
+
+        <security:intercept-url pattern="/admin/*" access="ROLE_ADMIN" />
+    </security:http>
+
+
+    <security:authentication-manager>
+        <security:authentication-provider user-service-ref="inMemoryUserServiceWithCustomUser"></security:authentication-provider>
+    </security:authentication-manager>
+
 <!-- 
-        <security:custom-filter ref="digestFilter" before="BASIC_AUTH_FILTER"/>
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:user-service>
+                <security:user authorities="ROLE_ADMIN" name="admin" password="admin" />
+            </security:user-service>
+        </security:authentication-provider>
+    </security:authentication-manager>
  -->
 
-		<security:intercept-url pattern="/admin/*" access="ROLE_ADMIN" />
-	</security:http>
 
-
-
-	<security:authentication-manager>
-		<security:authentication-provider>
-			<security:user-service>
-				<security:user authorities="ROLE_ADMIN" name="admin" password="admin" />
-			</security:user-service>
-		</security:authentication-provider>
-	</security:authentication-manager>
 
 
     <!-- Beans -->
@@ -80,5 +84,26 @@
 
     <bean id="userService" class="com.terrormovies.web.service.UserDetailsServiceImpl"></bean>
  -->
+
+
+    <!-- InMemory UserDetails -->
+    <bean id="inMemoryUserServiceWithCustomUser" class="com.terrormovies.web.security.CustomInMemoryUserDetailsManager">
+        <constructor-arg>
+            <list>
+                <bean class="com.terrormovies.web.model.User">
+                    <constructor-arg value="admin" />
+                    <constructor-arg value="admin" />
+                    <constructor-arg>
+                        <list>
+                            <bean class="org.springframework.security.core.authority.SimpleGrantedAuthority">
+                                <constructor-arg value="ROLE_ADMIN"/>
+                            </bean>
+                        </list>
+                    </constructor-arg>
+                    <constructor-arg value="Scarioni"/>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
 
 </beans>
