@@ -5,10 +5,21 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
 	<security:http auto-config="true">
-	    <security:form-login login-page="/custom_login" username-parameter="user_param" password-parameter="pass_param" default-target-url="/admin/movies" authentication-failure-url="/custom_login?login_error"/>
+<!--    Configuration for form login authentication -->
+<!-- 
+		<security:form-login login-page="/custom_login"
+			username-parameter="user_param" password-parameter="pass_param"
+			default-target-url="/admin/movies"
+			authentication-failure-url="/custom_login?login_error" authentication-failure-handler-ref="serverErrorHandler"/>
+ -->
+<!-- HTTP Authentication (non-form) :: BasicAuthenticationFilter & BasicAuthenticationEntryPoint as strategy -->
+        <security:http-basic/>
 
-		<security:intercept-url pattern="/admin/**/*" access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/admin/**/*"
+			access="ROLE_ADMIN" />
 	</security:http>
+
+
 
 	<security:authentication-manager>
 		<security:authentication-provider>
@@ -17,5 +28,9 @@
 			</security:user-service>
 		</security:authentication-provider>
 	</security:authentication-manager>
+
+
+    <!-- Beans -->
+    <bean id="serverErrorHandler" class="com.terrormovies.web.security.ServerErrorFailureHandler"/>
 
 </beans>
