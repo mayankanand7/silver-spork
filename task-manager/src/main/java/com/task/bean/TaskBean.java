@@ -1,10 +1,7 @@
-package com.task.model;
+package com.task.bean;
 
-import java.util.Objects;
+public class TaskBean {
 
-public class Task {
-
-    // Fields
     private Integer id;
     private Long version;
 
@@ -24,26 +21,8 @@ public class Task {
     // Constructor
     // ------------------------------------------------------------------------
 
-    public Task() {
+    public TaskBean() {
         super();
-    }
-
-
-    // Methods
-    // ------------------------------------------------------------------------
-
-    public void validate() {
-        if (Objects.isNull(userId)) {
-            throw new IllegalArgumentException("User ID cannot be NULL");
-        }
-
-        if (Objects.isNull(title) || title.isBlank()) {
-            throw new IllegalArgumentException("Title cannot be BLANK");
-        }
-
-        if (Objects.isNull(createdAt)) {
-            throw new IllegalArgumentException("Created At timestamp cannot be NULL");
-        }
     }
 
 

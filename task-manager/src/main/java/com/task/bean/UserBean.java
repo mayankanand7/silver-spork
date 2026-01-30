@@ -1,12 +1,9 @@
-package com.task.model;
+package com.task.bean;
 
-import java.util.Objects;
-
-
-public class User {
+public class UserBean {
 
     // Fields
-    private Integer id;
+    private Long id;
     private Long version;
 
     private String username;
@@ -17,46 +14,23 @@ public class User {
     private String email;
     private String phoneNumber;
 
-    private Long createdAt;
-    private Long updatedAt;
-
-    private Boolean isActive;
-
 
     // Constructor
     // ------------------------------------------------------------------------
 
-    public User() {
+    public UserBean() {
         super();
-    }
-
-
-    // Methods
-    // ------------------------------------------------------------------------
-
-    public void validate() {
-        if (Objects.isNull(username) || username.isBlank()) {
-            throw new IllegalArgumentException("Username cannot be BLANK");
-        }
-
-        if (Objects.isNull(email) || email.isBlank()) {
-            throw new IllegalArgumentException("Email cannot be BLANK");
-        }
-
-        if (Objects.isNull(createdAt)) {
-            throw new IllegalArgumentException("Created At timestamp cannot be NULL");
-        }
     }
 
 
     // Getters and Setters
     // ------------------------------------------------------------------------
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -68,7 +42,6 @@ public class User {
         this.version = version;
     }
 
-
     public String getUsername() {
         return username;
     }
@@ -76,7 +49,6 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
 
     public String getFirstName() {
         return firstName;
@@ -110,38 +82,15 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public Long getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Long createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Long getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Long updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public Boolean getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
-    }
-
 
     // Object Methods
     // ------------------------------------------------------------------------
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", username=" + username + ", firstName=" + firstName + ", email=" + email
-                + ", phoneNumber=" + phoneNumber + ", isActive=" + isActive + "]";
+        return "UserBean [username=" + username + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
+                + email + ", phoneNumber=" + phoneNumber + "]";
     }
+
 
 }

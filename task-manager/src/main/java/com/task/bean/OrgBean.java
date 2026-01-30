@@ -1,9 +1,9 @@
-package com.task.model;
+package com.task.bean;
 
-public class Org {
+public class OrgBean {
 
     // Fields
-    private Integer id;
+    private Long id;
     private Long version;
 
     private String name;
@@ -22,35 +22,23 @@ public class Org {
     private Long createdAt;
     private Long updatedAt;
 
-    private Boolean isActive;
-
 
     // Constructor
     // ------------------------------------------------------------------------
 
-    public Org() {
+    public OrgBean() {
         super();
-    }
-
-
-    // Methods
-    // ------------------------------------------------------------------------
-
-    public void validate() {
-        if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Name cannot be BLANK");
-        }
     }
 
 
     // Getters and Setters
     // ------------------------------------------------------------------------
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -61,7 +49,6 @@ public class Org {
     public void setVersion(Long version) {
         this.version = version;
     }
-
 
     public String getName() {
         return name;
@@ -143,7 +130,6 @@ public class Org {
         this.email = email;
     }
 
-
     public Long getCreatedAt() {
         return createdAt;
     }
@@ -161,21 +147,13 @@ public class Org {
     }
 
 
-    public Boolean getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
-    }
-
-
-    // Objects Methods
+    // Object Methods
     // ------------------------------------------------------------------------
 
     @Override
     public String toString() {
-        return "Org [id=" + id + ", version=" + version + ", name=" + name + ", isActive=" + isActive + "]";
+        return "OrgBean [name=" + name + ", city=" + city + ", state=" + state + ", phoneNumber=" + phoneNumber
+                + ", email=" + email + "]";
     }
 
 
