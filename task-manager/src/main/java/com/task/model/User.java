@@ -6,7 +6,7 @@ import java.util.Objects;
 public class User {
 
     // Fields
-    private Long id;
+    private Integer id;
     private Long version;
 
     private String username;
@@ -52,11 +52,11 @@ public class User {
     // Getters and Setters
     // ------------------------------------------------------------------------
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

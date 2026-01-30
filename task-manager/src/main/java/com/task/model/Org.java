@@ -3,7 +3,7 @@ package com.task.model;
 public class Org {
 
     // Fields
-    private Long id;
+    private Integer id;
     private Long version;
 
     private String name;
@@ -46,11 +46,11 @@ public class Org {
     // Getters and Setters
     // ------------------------------------------------------------------------
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

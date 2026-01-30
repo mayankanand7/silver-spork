@@ -5,11 +5,11 @@ import java.util.Objects;
 public class Task {
 
     // Fields
-    private Long id;
+    private Integer id;
     private Long version;
 
     private Integer userId;
-    private Long parentId;
+    private Integer parentId;
 
     private String title;
     private String description;
@@ -50,11 +50,11 @@ public class Task {
     // Getters and Setters
     // ------------------------------------------------------------------------
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -75,11 +75,11 @@ public class Task {
         this.userId = userId;
     }
 
-    public Long getParentId() {
+    public Integer getParentId() {
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
 
