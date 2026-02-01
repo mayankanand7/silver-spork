@@ -29,7 +29,7 @@ public class TaskDAO {
     // Methods
     // ------------------------------------------------------------------------
 
-    public int create(final TaskBean task) throws SQLException {
+    public int create(final TaskBean task) {
         final String insertSql =
                 "INSERT INTO tasks (user_id, parent_id, title, description, is_completed, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -66,10 +66,12 @@ public class TaskDAO {
             } else {
                 throw new SQLException("Insert failed, no rows affected.");
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public void update(final int id, final TaskBean task) throws SQLException {
+    public void update(final int id, final TaskBean task) {
         final String updateSql =
                 "UPDATE tasks SET user_id=?, parent_id=?, title=?, description=?, is_completed=?, is_active=?, updated_at=? WHERE id = ?";
         try (final Connection conn = DBUtil.getConnection();
@@ -90,10 +92,12 @@ public class TaskDAO {
 
             // Execute Update
             pstmt.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public void delete(final int id) throws SQLException {
+    public void delete(final int id) {
         final String deleteSql = "DELETE FROM tasks WHERE id = ?";
 
         try (final Connection conn = DBUtil.getConnection();
@@ -103,10 +107,12 @@ public class TaskDAO {
 
             // Execute Delete
             pstmt.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public Task getById(final int id) throws SQLException {
+    public Task getById(final int id) {
         final String selectSql = "SELECT * FROM tasks WHERE id = ?";
 
         try (final Connection conn = DBUtil.getConnection();
@@ -138,10 +144,12 @@ public class TaskDAO {
                 return task;
             }
             return null;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public List<Task> getAll(final String query) throws SQLException {
+    public List<Task> getAll(final String query) {
         final String selectSql = "SELECT * FROM tasks";
 
         final List<Task> tasks = new ArrayList<>();
@@ -171,6 +179,8 @@ public class TaskDAO {
 
                 tasks.add(task);
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
         return tasks;

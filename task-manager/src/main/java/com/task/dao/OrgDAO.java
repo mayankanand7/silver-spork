@@ -1,15 +1,11 @@
 package com.task.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.*;
+import java.util.*;
 
-import com.task.bean.OrgBean;
-import com.task.model.Org;
-import com.task.util.DBUtil;
+import com.task.bean.*;
+import com.task.model.*;
+import com.task.util.*;
 
 
 public class OrgDAO {
@@ -28,7 +24,7 @@ public class OrgDAO {
     // Methods
     // ------------------------------------------------------------------------
 
-    public int create(final OrgBean org) throws SQLException {
+    public int create(final OrgBean org) {
         final String insertSql =
                 "INSERT INTO orgs (name, description, address_line_1, address_line_2, city, state, zipcode, country, phone_no, email, created_at, updated_at, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -71,10 +67,12 @@ public class OrgDAO {
             } else {
                 throw new SQLException("Insert failed, no rows affected.");
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public void update(final int id, final OrgBean org) throws SQLException {
+    public void update(final int id, final OrgBean org) {
         final String updateSql =
                 "UPDATE orgs SET name=?, description=?, address_line_1=?, address_line_2=?, city=?, state=?, zipcode=?, country=?, phone_no=?, email=?, updated_at=?, is_active=? WHERE id = ?";
         try (final Connection conn = DBUtil.getConnection();
@@ -98,10 +96,12 @@ public class OrgDAO {
             pstmt.setBoolean(6, Boolean.TRUE);
             // Execute Update
             pstmt.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public void delete(final int id) throws SQLException {
+    public void delete(final int id) {
         final String deleteSql = "DELETE FROM orgs WHERE id = ?";
 
         try (final Connection conn = DBUtil.getConnection();
@@ -111,10 +111,12 @@ public class OrgDAO {
 
             // Execute Delete
             pstmt.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public Org getById(final int id) throws SQLException {
+    public Org getById(final int id) {
         final String selectSql = "SELECT * FROM orgs WHERE id = ?";
 
         try (final Connection conn = DBUtil.getConnection();
@@ -150,10 +152,12 @@ public class OrgDAO {
                 return org;
             }
             return null;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public List<Org> getAll(final String query) throws SQLException {
+    public List<Org> getAll(final String query) {
         final String selectSql = "SELECT * FROM org";
 
         final List<Org> orgs = new ArrayList<>();
@@ -187,6 +191,8 @@ public class OrgDAO {
 
                 orgs.add(org);
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
         return orgs;
