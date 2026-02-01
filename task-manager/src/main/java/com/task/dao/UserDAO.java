@@ -28,7 +28,7 @@ public class UserDAO {
     // Methods
     // ------------------------------------------------------------------------
 
-    public int create(final UserBean user) throws SQLException {
+    public int create(final UserBean user) {
         final String insertSql =
                 "INSERT INTO users (username, first_name, last_name, email, phone_no, is_active, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -65,10 +65,12 @@ public class UserDAO {
             } else {
                 throw new SQLException("Insert failed, no rows affected.");
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public void update(final int id, final UserBean user) throws SQLException {
+    public void update(final int id, final UserBean user) {
         final String updateSql =
                 "UPDATE users SET username = ?, first_name = ?, last_name = ?, email = ?, phone_no = ?, updated_assssssst = ?, is_active = ? WHERE id = ?";
         try (final Connection conn = DBUtil.getConnection();
@@ -83,10 +85,12 @@ public class UserDAO {
 
             // Execute Update
             pstmt.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public void delete(final int id) throws SQLException {
+    public void delete(final int id) {
         final String deleteSql = "DELETE FROM users WHERE id = ?";
 
         try (final Connection conn = DBUtil.getConnection();
@@ -96,10 +100,12 @@ public class UserDAO {
 
             // Execute Delete
             pstmt.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public User getById(final int id) throws SQLException {
+    public User getById(final int id) {
         final String selectSql = "SELECT * FROM users WHERE id = ?";
 
         try (final Connection conn = DBUtil.getConnection();
@@ -129,10 +135,12 @@ public class UserDAO {
                 return user;
             }
             return null;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public List<User> getAll(final String query) throws SQLException {
+    public List<User> getAll(final String query) {
         final String selectSql = "SELECT * FROM users";
 
         final List<User> users = new ArrayList<>();
@@ -160,6 +168,8 @@ public class UserDAO {
 
                 users.add(user);
             }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
 
         return users;
