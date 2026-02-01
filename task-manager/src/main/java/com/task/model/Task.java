@@ -15,10 +15,11 @@ public class Task {
     private String description;
 
     private Boolean isCompleted;
-    private Boolean isActive;
 
     private Long createdAt;
     private Long updatedAt;
+
+    private Boolean isActive;
 
 
     // Constructor
@@ -108,14 +109,6 @@ public class Task {
         this.isCompleted = isCompleted;
     }
 
-    public Boolean getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
-    }
-
     public Long getCreatedAt() {
         return createdAt;
     }
@@ -130,6 +123,14 @@ public class Task {
 
     public void setUpdatedAt(Long updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
     }
 
 
