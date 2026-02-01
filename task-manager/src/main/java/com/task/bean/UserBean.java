@@ -3,7 +3,7 @@ package com.task.bean;
 public class UserBean {
 
     // Fields
-    private Long id;
+    private Integer id;
     private Long version;
 
     private String username;
@@ -13,6 +13,9 @@ public class UserBean {
 
     private String email;
     private String phoneNumber;
+
+    private Long createdAt;
+    private Long updatedAt;
 
 
     // Constructor
@@ -26,11 +29,11 @@ public class UserBean {
     // Getters and Setters
     // ------------------------------------------------------------------------
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -80,6 +83,22 @@ public class UserBean {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Long getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Long createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Long getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Long updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
 
